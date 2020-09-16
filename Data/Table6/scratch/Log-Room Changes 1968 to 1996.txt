@@ -1,0 +1,4 @@
+Owner to Renter. Mean:   -0.29. Median:   -0.22
+Renter to Owner. Mean:    0.25. Median:    0.22
+Owner to Owner. Mean:    0.05. Median:    0.00
+Renter to Renter. Mean:    0.04. Median:    0.00

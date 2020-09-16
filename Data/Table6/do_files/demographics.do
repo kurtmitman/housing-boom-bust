@@ -1,0 +1,295 @@
+# delimit ;
+
+cd "$scratch_dir";
+
+***************************************************************;
+*cross year demographics information;
+***************************************************************;
+
+use temp_cross_year.dta, clear;
+
+rename ER30001 int_numb68;
+rename ER30002 per_numb68;
+
+rename ER30020 int_numb69;
+rename ER30043 int_numb70;
+rename ER30067 int_numb71;
+rename ER30091 int_numb72;
+rename ER30117 int_numb73;
+rename ER30138 int_numb74;
+rename ER30160 int_numb75;
+rename ER30188 int_numb76;
+rename ER30217 int_numb77;
+rename ER30246 int_numb78;
+rename ER30283 int_numb79;
+rename ER30313 int_numb80;
+rename ER30343 int_numb81;
+rename ER30373 int_numb82;
+rename ER30399 int_numb83;
+rename ER30429 int_numb84;
+rename ER30463 int_numb85;
+rename ER30498 int_numb86;
+rename ER30535 int_numb87;
+rename ER30570 int_numb88;
+rename ER30606 int_numb89;
+rename ER30642 int_numb90;
+rename ER30689 int_numb91;
+rename ER30733 int_numb92;
+rename ER30806 int_numb93;
+rename ER33101 int_numb94;
+rename ER33201 int_numb95;
+rename ER33301 int_numb96;
+rename ER33401 int_numb97;
+rename ER33501 int_numb99;
+rename ER33601 int_numb101;
+rename ER33701 int_numb103;
+rename ER33801 int_numb105;
+rename ER33901 int_numb107;
+rename ER34001 int_numb109;
+rename ER34101 int_numb111;
+rename ER34201 int_numb113;
+
+*******************************************************************;
+*sequence number;
+*******************************************************************;
+
+rename ER30021 seq69;
+rename ER30044 seq70;
+rename ER30068 seq71;
+rename ER30092 seq72;
+rename ER30118 seq73;
+rename ER30139 seq74;
+rename ER30161 seq75;
+rename ER30189 seq76;
+rename ER30218 seq77;
+rename ER30247 seq78;
+rename ER30284 seq79;
+rename ER30314 seq80;
+rename ER30344 seq81;
+rename ER30374 seq82;
+rename ER30400 seq83;
+rename ER30430 seq84;
+rename ER30464 seq85;
+rename ER30499 seq86;
+rename ER30536 seq87;
+rename ER30571 seq88;
+rename ER30607 seq89;
+rename ER30643 seq90;
+rename ER30690 seq91;
+rename ER30734 seq92;
+rename ER30807 seq93;
+rename ER33102 seq94;
+rename ER33202 seq95;
+rename ER33302 seq96;
+rename ER33402 seq97;
+rename ER33502 seq99;
+rename ER33602 seq101;
+rename ER33702 seq103;
+rename ER33802 seq105;
+rename ER33902 seq107;
+rename ER34002 seq109;
+rename ER34102 seq111;
+rename ER34202 seq113;
+
+***************************************************;
+*years of completed education;
+***************************************************;
+
+rename ER30010 years_school68;
+*no data for 69 in cross-year file;
+rename ER30052 years_school70;
+rename ER30076 years_school71;
+rename ER30100 years_school72;
+rename ER30126 years_school73;
+rename ER30147 years_school74;
+rename ER30169 years_school75;
+rename ER30197 years_school76;
+rename ER30226 years_school77;
+rename ER30255 years_school78;
+rename ER30296 years_school79;
+rename ER30326 years_school80;
+rename ER30356 years_school81;
+rename ER30384 years_school82;
+rename ER30413 years_school83;
+rename ER30443 years_school84;
+rename ER30478 years_school85;
+rename ER30513 years_school86;
+rename ER30549 years_school87;
+rename ER30584 years_school88;
+rename ER30620 years_school89;
+rename ER30657 years_school90;
+rename ER30703 years_school91;
+rename ER30748 years_school92;
+rename ER30820 years_school93;
+rename ER33115 years_school94;
+rename ER33215 years_school95;
+rename ER33315 years_school96;
+rename ER33415 years_school97;
+rename ER33516 years_school99;
+rename ER33616 years_school101;
+rename ER33716 years_school103;
+rename ER33817 years_school105;
+rename ER33917 years_school107;  
+rename ER34020 years_school109;   
+rename ER34119 years_school111;  
+rename ER34230 years_school113;  
+
+*missing values--replace with .;
+foreach var of varlist years_school* {;
+replace `var' = . if `var' > 17;
+};
+
+*schooling based on highest measurement;
+egen years_school = rowmax(years_school*);
+replace years_school = . if years_school == 0;
+
+rename ER34227 coll_major;
+
+**********************************************************;
+*age and year of birth;
+**********************************************************;
+
+*age variables;
+*added;
+rename ER34204  age113;
+rename ER34104  age111;
+rename ER34004  age109;
+rename ER33904  age107;
+rename ER33804  age105;
+rename ER33704  age103;
+rename ER33604  age101;
+rename ER33504  age99;
+rename ER33404  age97;
+rename ER33304  age96;
+rename ER33204  age95;
+rename ER33104  age94;
+rename ER30809  age93;
+rename ER30736  age92;
+rename ER30692  age91;
+rename ER30645  age90;
+rename ER30609  age89;
+rename ER30573  age88;
+rename ER30538  age87;
+rename ER30501  age86;
+rename ER30466  age85;
+rename ER30432  age84;
+rename ER30402  age83;
+rename ER30376  age82;
+rename ER30346  age81;  
+rename ER30316  age80; 
+rename ER30286  age79;  
+rename ER30249  age78;  
+rename ER30220  age77;  
+rename ER30191  age76;  
+rename ER30163  age75; 
+rename ER30141  age74;  
+rename ER30120  age73;    
+rename ER30094  age72;  
+rename ER30070  age71;  
+rename ER30046  age70; 
+rename ER30023  age69;  
+rename ER30004  age68; 
+
+foreach var of varlist age* {;
+replace `var' = . if `var' == 999;
+replace `var' = . if `var' == 0;
+};
+
+*year born;
+rename ER30404 ybirth83;   
+rename ER30434 ybirth84;  
+rename ER30468 ybirth85;   
+rename ER30503 ybirth86;  
+rename ER30540 ybirth87;   
+rename ER30575 ybirth88;  
+rename ER30611 ybirth89;    
+rename ER30647 ybirth90;  
+rename ER30694 ybirth91;  
+rename ER30738 ybirth92;   
+rename ER30811 ybirth93;  
+rename ER33106 ybirth94;  
+rename ER33206 ybirth95; 
+rename ER33306 ybirth96;   
+rename ER33406 ybirth97;  
+rename ER33506 ybirth99;   
+rename ER33606 ybirth101;    
+rename ER33706 ybirth103;   
+rename ER33806 ybirth105;  
+rename ER33906 ybirth107;      
+rename ER34006 ybirth109;      
+rename ER34106 ybirth111;
+rename ER34206 ybirth113;
+
+foreach var of varlist ybirth* {;
+replace `var' = . if `var' == 0  | `var' == 9999;
+replace `var' = `var' - 1900 if !missing(`var');
+};
+ 
+*convert age variables into ybirth variables;
+forvalues Y = 68(1)82 {;
+gen ybirth`Y' = `Y' - age`Y' if !missing(age`Y');
+};
+
+foreach Y of numlist 83(1)97 99 101 103 105 107 109 111 {;
+replace ybirth`Y' = `Y' - age`Y' if ybirth`Y' == .;
+};
+
+egen ybirth = rowmedian(ybirth*);
+replace ybirth = floor(ybirth);
+
+* DDD NOTE: THERE ARE STILL 110 INDIVIDUALS WITHOUT AGES.
+
+*******************************************************************;
+*relationship to head variables (head, wife, child, etc.);
+*******************************************************************;
+* See e.g. http://simba.isr.umich.edu/cb.aspx?vList=ER30003 for coding info;
+* Important note: coding varies over the years...;
+
+rename  ER30003 relate68;
+rename  ER30022 relate69;
+rename  ER30045 relate70;
+rename  ER30069 relate71; 
+rename  ER30093 relate72;    
+rename  ER30119 relate73; 
+rename  ER30140 relate74;
+rename  ER30162 relate75;
+rename  ER30190 relate76;   
+rename  ER30219 relate77;
+rename  ER30248 relate78;   
+rename  ER30285 relate79;
+rename  ER30315 relate80;        
+rename  ER30345 relate81;
+rename  ER30375 relate82; 
+rename  ER30401 relate83;       
+rename  ER30431 relate84; 
+rename  ER30465 relate85;  
+rename  ER30500 relate86;  
+rename  ER30537 relate87;
+rename  ER30572 relate88;   
+rename  ER30608 relate89;    
+rename  ER30644 relate90; 
+rename  ER30691 relate91; 
+rename  ER30735 relate92; 
+rename  ER30808 relate93;
+rename  ER33103 relate94;  
+rename  ER33203 relate95; 
+rename  ER33303 relate96; 
+rename  ER33403 relate97;  
+rename  ER33503 relate99; 
+rename  ER33603 relate101;  
+rename  ER33703 relate103;   
+rename  ER33803 relate105; 
+rename  ER33903 relate107; 
+rename  ER34003 relate109; 
+rename  ER34103 relate111;
+rename  ER34203 relate113;
+
+*******************************************************************;
+*save
+*******************************************************************;
+
+keep int_numb* per_numb68 years_school coll_major ybirth relate* seq*;
+sort int_numb* per_numb68;
+
+compress;
+save temp_demographics.dta, replace;

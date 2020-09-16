@@ -1,0 +1,3 @@
+Individuals who are heads at least once, with age < 24 or > 63 :   13782. Observations:  105774
+Keeping only heads with housing information in one period at least:    9283. Observations:  105774
+Total individuals with transitions:    5301. Total transitions:   15235

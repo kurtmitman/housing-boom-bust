@@ -1,0 +1,106 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/kmitm/GitHub/housing-boom-bust/scratch/Table6.log
+  log type:  text
+ opened on:  30 Jul 2020, 18:10:44
+
+. // use ~/Downloads/ReplicationBaseline/SimulationPanelDataExp.dta, clear
+. use /Users/kmitm/Downloads/ConsHouse/Results_2017_05_14/Markup40_05_10/PanelBoomOnly_2017_07_23, clear
+
+. 
+. keep if time>=20 & time<=60
+(0 observations deleted)
+
+. 
+. sort id time
+
+. 
+. 
+. xtset id time
+       panel variable:  id (strongly balanced)
+        time variable:  time, 39 to 50
+                delta:  1 unit
+
+. 
+. by id: gen owner_occ=F.own
+(150,000 missing values generated)
+
+. by id: gen owner_occL=L.own
+(150,000 missing values generated)
+
+. gen rent_to_own=0
+
+. gen own_to_rent=0
+
+. gen own_to_own=0
+
+. gen rent_to_rent=0
+
+. by id: replace own_to_own = 1 if own==1 & sell==1 & owner_occ==1
+(127375 real changes made)
+
+. by id: replace hcons=F.hcons if hcons==0
+(60,346 real changes made, 4,810 to missing)
+
+. by id: replace rent_to_own = 1 if own==0 & owner_occ ==1
+(52166 real changes made)
+
+. by id: replace rent_to_rent = 1 if own==0 & owner_occ ==0
+(566060 real changes made)
+
+. by id: replace own_to_rent = 1 if own==1 & owner_occ ==0
+(55853 real changes made)
+
+. by id: replace rent_to_rent = 1 if own==0 & owner_occ ==0 & owner_occL==0
+(0 real changes made)
+
+. by id: gen past_rent = L.hcons if rent_to_own==1 | rent_to_rent==1
+(1,238,515 missing values generated)
+
+. by id: gen past_house = L.hcons if own_to_rent==1
+(1,749,177 missing values generated)
+
+. gen size_otr = ln(hcons)-ln(past_house) if own_to_rent==1
+(1,749,177 missing values generated)
+
+. gen size_rto = ln(hcons)-ln(past_rent) if rent_to_own==1
+(1,752,564 missing values generated)
+
+. gen size_rtr = ln(hcons)-ln(past_rent) if rent_to_rent==1
+(1,285,951 missing values generated)
+
+. by id: gen size_oto = ln(hcons)-ln(L.hcons) if own==1 & owner_occ==1
+(912,308 missing values generated)
+
+. 
+. su size_rto if time>=30 & time<40 & age>2
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    size_rto |          0
+
+. su size_rtr if time>=30 & time<40 & age>2
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    size_rtr |          0
+
+. su size_otr if time>=30 & time<40 & age>2
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    size_otr |          0
+
+. su size_oto if time>=30 & time<40  & size_oto~=0 & age>2
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    size_oto |          0
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/kmitm/GitHub/housing-boom-bust/scratch/Table6.log
+  log type:  text
+ closed on:  30 Jul 2020, 18:10:52
+-------------------------------------------------------------------------------------------------------------------------------------------
